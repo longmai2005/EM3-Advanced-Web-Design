@@ -21,13 +21,10 @@ function show() {
     for (i in arr) {
         var n = Number(i) + 1;
 
-        // Tính Amount
         var amount = arr[i].quantitypro * arr[i].pricepro;
 
-        // Discount 15%
         var discount = amount * 0.15;
 
-        // Tính Total
         var total = amount - discount;
 
         html += "<tr>";
@@ -50,6 +47,10 @@ function show() {
 
 
 function reset() {
+    arr = [];
+
+    document.getElementById("tbl").innerHTML = "";
+
     document.getElementById("fullname").value = "";
     document.getElementById("idpro").value = "";
     document.getElementById("namepro").value = "";
