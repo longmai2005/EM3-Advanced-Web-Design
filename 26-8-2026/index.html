@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop DEBUG</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-wrap">
+      <img src="https://via.placeholder.com/40x40?text=L" alt="Logo" class="logo" />
+      <span class="brand">FASHION STORE</span>
+    </div>
+
+    <nav class="menu">
+      <a href="#">Trang chủ</a>
+      <a href="#men-section">Thời Trang Nam</a>
+      <a href="#women-section">Thời Trang Nữ</a>
+      <a href="#">Tin Tức</a>
+    </nav>
+
+    <form class="search-wrap" onsubmit="return false;">
+      <input id="searchInput" type="text" placeholder="Nhập thông tin cần tìm..." />
+      <button type="button" id="searchBtn">Tìm kiếm</button>
+    </form>
+  </header>
+
+  <main class="container">
+    <section id="women-section" class="product-section">
+      <h2 class="section-title">THỜI TRANG NỮ</h2>
+      <div id="women" class="product-grid"></div>
+    </section>
+
+    <section id="men-section" class="product-section men-section">
+      <div class="men-title-box">
+        <h2 class="section-title men-title">Thời trang nam</h2>
+      </div>
+      <div id="men" class="product-grid"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
