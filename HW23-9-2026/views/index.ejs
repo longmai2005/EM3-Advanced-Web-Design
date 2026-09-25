@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Square Studio — Tính hình vuông</title>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%
+    const hasResult = perimeter !== null && area !== null;
+
+    const formatNumber = (value) =>
+      new Intl.NumberFormat('vi-VN', {
+        maximumSignificantDigits: 12
+      }).format(Number(value));
+  %>
+
+  <div class="app">
+    <header class="header">
+      <a class="brand" href="/" aria-label="Square Studio — Trang chủ">
+        <span class="brand-icon" aria-hidden="true">□</span>
+
+        <span>
+          <strong>Square Studio</strong>
+          <small>Khám phá hình học</small>
+        </span>
+      </a>
+
+      <span class="header-tag">Hình học phẳng</span>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <span class="eyebrow">MỘT CẠNH. HAI KẾT QUẢ.</span>
+
+        <h1 id="page-title">
+          Hình vuông nhỏ.<br>
+          <span>Tính toán thật dễ.</span>
+        </h1>
+
+        <p>
+          Nhập độ dài cạnh để tính chu vi, diện tích
+          và lưu lại kết quả của bạn.
+        </p>
+      </section>
+
+      <div class="workspace">
+        <section class="card input-card" aria-labelledby="input-title">
+          <div class="section-heading">
+            <span class="step-number">01</span>
+
+            <div>
+              <h2 id="input-title">Nhập thông số</h2>
+              <p>Bắt đầu từ độ dài một cạnh.</p>
+            </div>
+          </div>
+
+          <div class="illustration" aria-hidden="true">
+            <div class="square-shape">
+              <span>a²</span>
+            </div>
+
+            <span class="dimension">← &nbsp; a &nbsp; →</span>
+          </div>
+
+          <form action="/calculate" method="POST">
+            <label for="sideLength">Độ dài cạnh</label>
+
+            <div class="input-wrapper">
+              <span class="input-symbol" aria-hidden="true">a</span>
+
+              <input
+                type="number"
+                id="sideLength"
+                name="sideLength"
+                placeholder="Ví dụ: 5"
+                value="<%= sideLength %>"
+                min="0"
+                step="any"
+                required
+                aria-describedby="side-help<%= error ? ' form-error' : '' %>"
+                <%= error ? 'aria-invalid="true"' : '' %>
+              >
+
+              <span class="input-unit">đơn vị</span>
+            </div>
+
+            <p id="side-help" class="helper-text">
+              Nhập số lớn hơn 0. Có thể dùng số thập phân.
+            </p>
+
+            <% if (error) { %>
+              <div id="form-error" class="error-message" role="alert">
+                <%= error %>
+              </div>
+            <% } %>
+
+            <button class="calculate-button" type="submit">
+              <span>Tính và lưu kết quả</span>
+              <span aria-hidden="true">↗</span>
+            </button>
+          </form>
+        </section>
+
+        <section class="card result-card" aria-labelledby="result-title">
+          <div class="section-heading">
+            <span class="step-number">02</span>
+
+            <div>
+              <h2 id="result-title">Kết quả của bạn</h2>
+              <p>Chu vi và diện tích trong một lần tính.</p>
+            </div>
+          </div>
+
+          <% if (hasResult) { %>
+            <div class="success-message" role="status">
+              <span class="status-dot" aria-hidden="true"></span>
+              Đã lưu kết quả vào MongoDB
+            </div>
+          <% } else { %>
+            <p class="empty-message">
+              Nhập độ dài cạnh rồi bấm “Tính và lưu kết quả”.
+            </p>
+          <% } %>
+
+          <div class="metrics">
+            <article class="metric metric-purple">
+              <div class="metric-top">
+                <h3>Chu vi</h3>
+                <span class="formula">P = 4 × a</span>
+              </div>
+
+              <p class="metric-value">
+                <%= hasResult ? formatNumber(perimeter) : '—' %>
+              </p>
+
+              <p class="metric-unit">đơn vị độ dài</p>
+            </article>
+
+            <article class="metric metric-green">
+              <div class="metric-top">
+                <h3>Diện tích</h3>
+                <span class="formula">S = a²</span>
+              </div>
+
+              <p class="metric-value">
+                <%= hasResult ? formatNumber(area) : '—' %>
+              </p>
+
+              <p class="metric-unit">đơn vị vuông</p>
+            </article>
+          </div>
+
+          <div class="explanation">
+            <span class="explanation-icon" aria-hidden="true">i</span>
+
+            <div>
+              <% if (hasResult) { %>
+                <h3>Cách tính với cạnh <%= formatNumber(sideLength) %></h3>
+                <p>
+                  Chu vi = 4 × <%= formatNumber(sideLength) %>
+                  = <%= formatNumber(perimeter) %>
+                </p>
+                <p>
+                  Diện tích = <%= formatNumber(sideLength) %>
+                  × <%= formatNumber(sideLength) %>
+                  = <%= formatNumber(area) %>
+                </p>
+              <% } else { %>
+                <h3>Bạn có biết?</h3>
+                <p>
+                  Hình vuông có bốn cạnh bằng nhau.
+                  Chu vi bằng bốn lần cạnh, diện tích bằng cạnh nhân cạnh.
+                </p>
+              <% } %>
+            </div>
+          </div>
+
+          <% if (hasResult) { %>
+            <a class="reset-link" href="/">Bắt đầu phép tính mới →</a>
+          <% } %>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>Square Studio</span>
+      <span>Đơn giản hóa từng phép tính.</span>
+    </footer>
+  </div>
+</body>
+</html>
