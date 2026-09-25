@@ -4,10 +4,23 @@
 </head>
 <body>
   <h1>Danh sách sản phẩm</h1>
-  <ul>
-    <% products.forEach(p => { %>
-      <li><%= p.id %> - <%= p.name %> - $<%= p.price %></li>
-    <% }) %>
+  <ul> <% products.forEach(product => { %>
+    <li>
+      <img src="<%= product.image %>" alt="<%= product.name %>" width="100">
+      <%= product.id %> -
+      <a href="/products/<%= product.id %>">
+        <%= product.name %>
+      </a>
+      - $<%= product.price %>
+    </li>
+    <% }); %>
   </ul>
+
+  <h2>Thêm sản phẩm mới</h2>
+  <form action="/products/add" method="POST">
+    <input type="text" name="name" placeholder="Tên sản phẩm" required>
+    <input type="number" name="price" placeholder="Giá sản phẩm" required>
+    <button type="submit">Thêm</button>
+  </form>
 </body>
 </html>

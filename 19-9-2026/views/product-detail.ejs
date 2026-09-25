@@ -1,0 +1,22 @@
+<!-- filepath: /Users/maiphuoclong/EM3 - Advanced Web Design/Intro/19-9-2026/views/product-detail.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title><%= product.name %></title>
+</head>
+<body>
+  <h1><%= product.name %></h1>
+
+  <img
+    src="<%= product.image %>"
+    alt="<%= product.name %>"
+    width="400"
+  >
+
+  <p>Mã sản phẩm: <%= product.id %></p>
+  <p>Giá: $<%= product.price %></p>
+
+  <a href="/products">Quay lại danh sách</a>
+</body>
+</html>
