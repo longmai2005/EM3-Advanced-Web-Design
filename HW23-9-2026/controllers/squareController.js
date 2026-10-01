@@ -44,7 +44,7 @@ exports.calculateSquare = async (req, res) => {
       area
     });
 
-    await square.save();
+    await square.save(); // Lưu dữ liệu vào MongoDB 
 
     res.render('index', {
       sideLength,
