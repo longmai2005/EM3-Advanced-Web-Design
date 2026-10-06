@@ -1,23 +1,20 @@
 const express = require('express');
 const path = require('path');
 
-const pageRoutes = require('./routes/productRoutes');
+const routes = require('./routes/productRoutes');
 
 const app = express();
 const PORT = 3000;
 
-const routes = require('./routes/productRoutes.js');
-
-// Kích hoạt public
+// Public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Cấu hình EJS
+// EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
+// Routes
 app.use('/', routes);
-
 
 app.listen(PORT, () => {
     console.log(`Server chạy tại http://localhost:${PORT}`);

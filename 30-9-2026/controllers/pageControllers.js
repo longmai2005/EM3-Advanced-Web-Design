@@ -1,15 +1,21 @@
-const { newProducts, topProducts } = require('../models/productModel');	
-	
-exports.getHomePage = (req, res) => {	
-  res.render('layout', { newProducts, topProducts });	
+const { newProducts, topProducts } = require('../models/productModels');
+
+exports.getHomePage = (req, res) => {
+    res.render('index', {
+        pageTitle: '',
+        newProducts,
+        topProducts
+    });
 };
 
 exports.about = (req, res) => {
-    res.render('about');
+    res.render('about', {
+        pageTitle: 'About'
+    });
 };
 
 exports.contact = (req, res) => {
-    res.render('contact');
+    res.render('contact', {
+        pageTitle: 'Contacts'
+    });
 };
-
-

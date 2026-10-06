@@ -1,6 +1,31 @@
-<section>
-    <h2>New Products</h2>
-    <% products.forEach(product => { %>
-        <%- include('partials/product-card', { product }) %>
-    <% }) %>
-</section>
+<div class="container">
+
+    <div class="space50">&nbsp;</div>
+
+    <div class="beta-products-list">
+
+        <h4>New Products</h4>
+
+        <div class="beta-products-details">
+            <p class="pull-left">
+                <%= products.length %> styles found
+            </p>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="row">
+
+            <% products.forEach(product => { %>
+
+                <div class="col-sm-3">
+                    <%- include('product-card', { product }) %>
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    </div>
+
+</div>
