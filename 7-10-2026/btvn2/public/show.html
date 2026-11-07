@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách sản phẩm</title>
+    <style>
+      body { font-family: Arial, sans-serif; max-width: 900px; margin: 32px auto; padding: 0 16px; }
+      table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+      th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+      th { background: #f3f4f6; }
+      #message { color: #b42318; }
+    </style>
+  </head>
+  <body>
+    <h1>Danh sách sản phẩm</h1>
+    <p id="message">Đang tải dữ liệu...</p>
+    <table>
+      <thead>
+        <tr><th>Tên</th><th>Giá</th><th>Danh mục</th><th>Tồn kho</th></tr>
+      </thead>
+      <tbody id="products"></tbody>
+    </table>
+
+    <script>
+      const money = value => new Intl.NumberFormat("vi-VN").format(value) + " ₫";
+
+      async function loadProducts() {
+        const message = document.querySelector("#message");
+        const body = document.querySelector("#products");
+        try {
+          const response = await fetch("/api/products");
+          if (!response.ok) throw new Error("Không tải được dữ liệu sản phẩm.");
+          const products = await response.json();
+          body.innerHTML = products.map(product => `
+            <tr>
+              <td>${product.name}</td>
+              <td>${money(product.price)}</td>
+              <td>${product.category}</td>
+              <td>${product.stock}</td>
+            </tr>
+          `).join("");
+          message.textContent = `Có ${products.length} sản phẩm.`;
+          message.style.color = "green";
+        } catch (error) {
+          message.textContent = error.message;
+        }
+      }
+
+      loadProducts();
+    </script>
+  </body>
+</html>
